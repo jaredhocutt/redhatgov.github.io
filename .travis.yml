@@ -15,7 +15,8 @@ script:
   - cd public
   - touch .nojekyll
   - echo "redhatgov.rhtdemo.com" > CNAME
-  - ls -lah
+  - tree workshops
+  - tree events
 
 deploy:
   provider: pages
