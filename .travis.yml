@@ -1,17 +1,12 @@
 branches:
   only:
-    - docs
-
-before_install:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then openssl aes-256-cbc -K $encrypted_3a2ffd558b46_key -iv $encrypted_3a2ffd558b46_iv -in secrets.tar.enc -out secrets.tar -d; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then tar xvf secrets.tar; fi'
+    - travis-ci-sandbox
 
 install:
   - gem install asciidoctor
   - sudo pip install Pygments
   - sudo pip install -r scripts/requirements.txt
   - cd scripts
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ./import_events.py; fi'
   - cd ..
   - rm -rf public || exit 0
 
@@ -19,7 +14,7 @@ script:
   - ./bin/hugo --buildFuture --verbose
   - cd public
   - touch .nojekyll
-  - echo "redhatgov.io" > CNAME
+  - echo "redhatgov.rhtdemo.com" > CNAME
   - ls -lah
 
 deploy:
@@ -28,7 +23,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   target_branch: master
   on:
-    branch: docs
-
-notifications:
-  slack: redhat:9meDz4fnYsXtr3krfjmSXADX
+    branch: travis-ci-sandbox
