@@ -18,6 +18,7 @@ script:
   - echo "redhatgov.rhtdemo.com" > CNAME
   - tree workshops
   - tree events
+  - pwd
 
 deploy:
   provider: pages
